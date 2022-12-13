@@ -375,7 +375,7 @@ GameObject:
   - component: {fileID: 664730513}
   - component: {fileID: 664730514}
   m_Layer: 0
-  m_Name: CardFactoy
+  m_Name: CardDispenser
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -408,7 +408,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9cffd4db6e2bc244c98a829a3e0ed764, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  nullData: {fileID: 11400000, guid: 030314c423ea5d145829dfea658d5ad2, type: 2}
+  _cardDataCollection:
+  - {fileID: 11400000, guid: b30a54cd50da2254abab63fbdd180683, type: 2}
+  - {fileID: 11400000, guid: 0ba01956a82c3c140a5a07774bf887b5, type: 2}
+  - {fileID: 11400000, guid: e251e7ed92820b84fb159440904731a7, type: 2}
+  - {fileID: 11400000, guid: e1f83107a05999d46a2d1fb7b6f3a4f7, type: 2}
+  - {fileID: 11400000, guid: 81fc8e4eea6175e4a945e0b54b424d37, type: 2}
+  - {fileID: 11400000, guid: 0cfb4d5d4d085cc4eaf3d936833e0b69, type: 2}
   emptyCardPrefab: {fileID: 8654465204114014753, guid: 201bd6966e713154e93c73d32e2c633d, type: 3}
+  isInitialized: 0
 --- !u!1 &705507993
 GameObject:
   m_ObjectHideFlags: 0
@@ -734,6 +743,7 @@ GameObject:
   - component: {fileID: 1148693760}
   - component: {fileID: 1148693759}
   - component: {fileID: 1148693758}
+  - component: {fileID: 1148693761}
   m_Layer: 5
   m_Name: RandomChangeButton
   m_TagString: Untagged
@@ -844,6 +854,18 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1148693756}
   m_CullTransparentMesh: 1
+--- !u!114 &1148693761
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1148693756}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0282513c09b28d44cb6d44624fcdbe1d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1275085748
 GameObject:
   m_ObjectHideFlags: 0
@@ -927,14 +949,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c6022263e6e969c4cab94e6b04260c7b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  cardCollection:
-  - {fileID: 11400000, guid: b30a54cd50da2254abab63fbdd180683, type: 2}
-  - {fileID: 11400000, guid: 0ba01956a82c3c140a5a07774bf887b5, type: 2}
-  - {fileID: 11400000, guid: e251e7ed92820b84fb159440904731a7, type: 2}
-  - {fileID: 11400000, guid: e1f83107a05999d46a2d1fb7b6f3a4f7, type: 2}
-  - {fileID: 11400000, guid: 81fc8e4eea6175e4a945e0b54b424d37, type: 2}
-  - {fileID: 11400000, guid: 0cfb4d5d4d085cc4eaf3d936833e0b69, type: 2}
   _playerHand: {fileID: 525671698}
+  randomStatChangeButton: {fileID: 1148693761}
 --- !u!4 &1815522162
 Transform:
   m_ObjectHideFlags: 0

@@ -8,32 +8,26 @@ namespace TestTask
         [SerializeField] private Art art;
         [SerializeField] private Text title;
         [SerializeField] private Text description;
-        [SerializeField] private IntValue attack;
-        [SerializeField] private IntValue hp;
-        [SerializeField] private IntValue mana;
-        [SerializeField] private Death death;
 
-        private CardData _cardData;
-        
-        public void Init(CardData data)
-        {
-            _cardData = data;
-            
-            title.SetText(_cardData.Title);
-            description.SetText(_cardData.Description);
-            attack.Assign(_cardData.Attack);
-            hp.Assign(_cardData.HP);
-            mana.Assign(_cardData.Mana);
-        }
+        public IntValue attack;
+        public IntValue hp;
+        public IntValue mana;
+        public Death death;
 
-        public void UpdateArt(Texture2D image)
-        {
-            art.SetArt(image);
-        }
+        private CardData _data;
 
-        public void SubscribeOnDeath(Action func)
+        public CardData Data
         {
-            death.OnDeath += func;
+            set
+            {
+                _data = value;
+                art.SetArt(value.Art);
+                title.SetText(value.Title);
+                description.SetText(value.Description);
+                attack.Assign(value.Attack);
+                hp.Assign(value.HP);
+                mana.Assign(value.Mana);
+            }
         }
     }
 }
