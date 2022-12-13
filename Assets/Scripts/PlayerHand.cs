@@ -6,7 +6,7 @@ using UnityEngine.Serialization;
 
 namespace TestTask
 {
-	public class PlayerHand : MonoBehaviour, IGameInitListener, IGamePlayListener
+	public class PlayerHand : MonoBehaviour, IGameInitListener, IGameStartListener
 	{
 		[SerializeField] private List<Card> hand = new ();
 		[SerializeField] private float cardsEllipseHeight;

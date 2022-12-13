@@ -9,32 +9,28 @@ namespace TestTask
         [SerializeField] private PlayerHand _playerHand;
 
         private GameContext _gameContext;
-        private CardFactory _cardFactory;
+        private CardFactory _cardDispenser;
 
         private readonly List<Card> _cards = new ();
-        private int _numberOfCards;
+        private int _requiredNumberOfCards;
 
         public void Construct(GameContext gameContext)
         {
             _gameContext = gameContext;
-            _cardFactory = gameContext.GetService<CardFactory>();
+            _cardDispenser = gameContext.GetService<CardFactory>();
         }
         
         void Awake()
         {
             _gameContext.SetGameState(GameContext.GameState.Init);
 
-            _numberOfCards = Random.Range(4, 7);
-            for (int i = 0; i < _numberOfCards; i++)
+            _requiredNumberOfCards = Random.Range(4, 7);
+            for (int i = 0; i < _requiredNumberOfCards; i++)
             {
-                _cardFactory.CreateCard(cardCollection[i], (Card card) =>
-                {
-                    _cards.Add(card);
-                }, (Card card) =>
+                _cardDispenser.OrderCard(cardCollection[i], (Card card) =>
                 {
                     _cards.Add(card);
                 });
-                
             }
         }
 
@@ -48,11 +44,12 @@ namespace TestTask
                     _playerHand.AddCard(card);
                     i++;
                 }
-                _gameContext.SetGameState(GameContext.GameState.Play);
+                _gameContext.SetGameState(GameContext.GameState.Start);
             }
+            
+            
         }
 
-        private bool IsCardsReady => _cards.Count == _numberOfCards;
-        
+        private bool IsCardsReady => _cards.Count == _requiredNumberOfCards;
     }
 }

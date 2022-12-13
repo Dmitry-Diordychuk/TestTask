@@ -16,7 +16,7 @@ namespace TestTask
             _imageService = gameContext.GetService<ImageService>();
         }
 
-        public void CreateCard(CardData cardData, Action<Card> onSuccess, Action<Card> onError)
+        public void OrderCard(CardData cardData, Action<Card> onReady)
         {
             Card card = Instantiate(emptyCardPrefab);
             card.Init(cardData);
@@ -25,11 +25,11 @@ namespace TestTask
                 (Texture2D image) =>
                 {
                     card.UpdateArt(image);
-                    onSuccess(card);
+                    onReady(card);
                 }, (string message) =>
                 {
                     Debug.LogWarning($"Art downloading failed with error: ${message}", this);
-                    onError(card);
+                    onReady(card);
                 }
             );
         }
