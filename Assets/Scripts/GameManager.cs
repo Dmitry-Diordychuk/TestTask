@@ -24,11 +24,9 @@ namespace TestTask
         {
             _gameContext.SetGameState(GameContext.GameState.Init);
 
-            _numberOfCards = Random.Range(4, 6);
+            _numberOfCards = Random.Range(4, 7);
             for (int i = 0; i < _numberOfCards; i++)
             {
-                //int randomCardIndex = Mathf.RoundToInt(Random.value * (cardCollection.Count - 1));
-                
                 _cardFactory.CreateCard(cardCollection[i], (Card card) =>
                 {
                     _cards.Add(card);
@@ -44,12 +42,9 @@ namespace TestTask
         {
             if (_gameContext.CurrentGameState == GameContext.GameState.Init && IsCardsReady)
             {
-                Debug.Log("Here");
                 int i = 0;
                 foreach (var card in _cards)
                 {
-                    card.transform.position = new Vector3(i * 100.0f, 0.0f, 0.0f);
-                    card.transform.SetParent(_playerHand.transform.parent);
                     _playerHand.AddCard(card);
                     i++;
                 }
