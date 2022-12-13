@@ -10,13 +10,13 @@ namespace TestTask
         [SerializeField] private CardData nullData;
         [SerializeField] private List<CardData> _cardDataCollection;
         [SerializeField] private Card emptyCardPrefab;
-
-        public int _lastCardIndex;
+        
         [HideInInspector] public bool isInitialized;
         
         private ImageService _imageService;
 
         private int _orderReadyCounter;
+        private int _lastCardIndex;
 
         public void Construct(GameContext gameContext)
         {

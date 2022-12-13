@@ -257,7 +257,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6209f69d83254ec0b851e336c141a2ef, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  hand: []
   cardsEllipseHeight: 100
   cardsEllipseWidth: 200
   cardsCenterOffset: 60
@@ -417,6 +416,7 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 81fc8e4eea6175e4a945e0b54b424d37, type: 2}
   - {fileID: 11400000, guid: 0cfb4d5d4d085cc4eaf3d936833e0b69, type: 2}
   emptyCardPrefab: {fileID: 8654465204114014753, guid: 201bd6966e713154e93c73d32e2c633d, type: 3}
+  _lastCardIndex: 0
   isInitialized: 0
 --- !u!1 &705507993
 GameObject:
