@@ -1,6 +1,5 @@
 using System;
 using System.Collections.Generic;
-using Unity.VisualScripting;
 using UnityEngine;
 
 namespace TestTask
@@ -18,15 +17,18 @@ namespace TestTask
             Finish
         }
 
+        public GameState CurrentGameState => _currentGameState;
+        
         private GameState _currentGameState = GameState.None;
+        
 
         private void Awake()
         {
-            foreach (var service in _services)
+            foreach (var listener in _listeners)
             {
-                if (service is IConstructable constructable)
+                if (listener is IConstructListener constructListener)
                 {
-                    constructable.Construct(this as GameContext);
+                    constructListener.Construct(this as GameContext);
                 }
             }
         }
@@ -107,7 +109,7 @@ namespace TestTask
         void OnGameFinish();
     }
 
-    public interface IConstructable
+    public interface IConstructListener
     {
         void Construct(GameContext gameContext);
     }

@@ -1,4 +1,6 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Networking;
 
@@ -7,26 +9,48 @@ namespace TestTask
 	public class ImageService : MonoBehaviour
 	{
 		[SerializeField] private string url;
+		
+		private readonly Dictionary<string, Texture2D> _alreadyDownloadedArt = new ();
 
-		public Texture2D GetImage()
+		public void GetImage(string imageName, Action<Texture2D> onSuccess, Action<string> onError)
+		{
+			if (_alreadyDownloadedArt.ContainsKey(imageName))
+			{
+				Debug.Log($"{imageName} Find");
+				onSuccess(_alreadyDownloadedArt[imageName]);
+				return;
+			}
+			
+			StartCoroutine(DownloadImage(imageName, texture2D =>
+			{
+				Texture2D copy = new Texture2D(texture2D.width, texture2D.height);
+				copy.SetPixels(texture2D.GetPixels());
+				copy.Apply();
+				_alreadyDownloadedArt[imageName] = copy;
+				onSuccess(copy);
+			}, onError));
+		}
+
+		private IEnumerator DownloadImage(string title, Action<Texture2D> onSuccess, Action<string> onError)
 		{
 			using UnityWebRequest webRequest = UnityWebRequest.Get(url);
-			webRequest.SendWebRequest();
+			webRequest.downloadHandler = new DownloadHandlerTexture();
+			yield return webRequest.SendWebRequest();
 
 			switch (webRequest.result)
 			{
 				case UnityWebRequest.Result.ConnectionError:
 				case UnityWebRequest.Result.DataProcessingError:
-					Debug.LogError("Error: " + webRequest.error, this);
-					break;
+					onError(webRequest.error);
+					yield break;
 				case UnityWebRequest.Result.ProtocolError:
-					Debug.LogError("HTTP Error: " + webRequest.error, this);
-					break;
+					onError(webRequest.error);
+					yield break;
 			}
 			
-			webRequest.downloadHandler = new DownloadHandlerTexture();
 			Texture2D texture = DownloadHandlerTexture.GetContent(webRequest);
-			return texture;
+			
+			onSuccess(texture);
 		}
 	}
 }

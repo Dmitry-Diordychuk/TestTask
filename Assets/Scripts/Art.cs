@@ -5,16 +5,16 @@ namespace TestTask
 {
     public class Art : MonoBehaviour
     {
-        private Image _image;
+        private RawImage _image;
 
         private void Awake()
         {
-            _image = GetComponent<Image>();
+            _image = GetComponent<RawImage>();
         }
 
         public void SetArt(Texture2D art)
         {
-            _image.material.mainTexture = art;
+            _image.texture = art;
         }
     }
 }

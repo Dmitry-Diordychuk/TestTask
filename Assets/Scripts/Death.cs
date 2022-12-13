@@ -1,6 +1,4 @@
 using System;
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 namespace TestTask
@@ -8,9 +6,9 @@ namespace TestTask
     public class Death : MonoBehaviour
     {
         public event Action OnDeath;
-        
+
         [SerializeField] private IntValue hp;
-        
+
         private void OnEnable()
         {
             hp.OnValueChanged += CheckDeath;

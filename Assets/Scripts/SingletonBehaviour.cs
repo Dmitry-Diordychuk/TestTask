@@ -1,29 +1,41 @@
-using System;
 using UnityEngine;
 
 namespace TestTask
 {
-	public class SingletonBehaviour<T> : MonoBehaviour
+	public class SingletonBehaviour<T> : MonoBehaviour where T: Component
 	{
-		private static SingletonBehaviour<T> _singletonBehaviour;
-        
-		private void OnEnable()
+		private static T _instance;
+
+		public static T Instance
 		{
-			if (_singletonBehaviour != null)
+			get
 			{
-				SingletonBehaviour<T> temp = _singletonBehaviour;
-				_singletonBehaviour = this;
-				Destroy(temp);
-			}
-			else
-			{
-				_singletonBehaviour = this;
+				if (_instance == null)
+				{
+					_instance = FindObjectOfType<T>();
+
+					if (_instance == null)
+					{
+						GameObject obj = new GameObject(typeof(T).Name);
+						_instance = obj.AddComponent<T>();
+					}
+				}
+
+				return _instance;
 			}
 		}
 
-		private void OnDisable()
+		private void Awake()
 		{
-			Destroy(this);
+			if (_instance != null)
+			{
+				Destroy(_instance);
+			}
+			else
+			{
+				_instance = this as T;
+				DontDestroyOnLoad(gameObject);
+			}
 		}
 	}
 }

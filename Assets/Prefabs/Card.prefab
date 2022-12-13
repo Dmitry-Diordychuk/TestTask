@@ -10,8 +10,8 @@ GameObject:
   m_Component:
   - component: {fileID: 2256068418782325223}
   - component: {fileID: 6373366210661561780}
-  - component: {fileID: 3881942502319762466}
   - component: {fileID: 9013784988294242608}
+  - component: {fileID: 1201163175156091610}
   m_Layer: 5
   m_Name: Art
   m_TagString: Untagged
@@ -47,36 +47,6 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 6960455814020375850}
   m_CullTransparentMesh: 1
---- !u!114 &3881942502319762466
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6960455814020375850}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_Material: {fileID: 0}
-  m_Color: {r: 1, g: 1, b: 1, a: 1}
-  m_RaycastTarget: 1
-  m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
-  m_Maskable: 1
-  m_OnCullStateChanged:
-    m_PersistentCalls:
-      m_Calls: []
-  m_Sprite: {fileID: 0}
-  m_Type: 0
-  m_PreserveAspect: 0
-  m_FillCenter: 1
-  m_FillMethod: 4
-  m_FillAmount: 1
-  m_FillClockwise: 1
-  m_FillOrigin: 0
-  m_UseSpriteMesh: 0
-  m_PixelsPerUnitMultiplier: 1
 --- !u!114 &9013784988294242608
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -89,6 +59,33 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8f2715f7f30e6ad41b56fa2b66e47cd0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &1201163175156091610
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6960455814020375850}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1344c3c82d62a2a41a3576d8abb8e3ea, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Material: {fileID: 0}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_RaycastTarget: 1
+  m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
+  m_Maskable: 1
+  m_OnCullStateChanged:
+    m_PersistentCalls:
+      m_Calls: []
+  m_Texture: {fileID: 0}
+  m_UVRect:
+    serializedVersion: 2
+    x: 0
+    y: 0
+    width: 1
+    height: 1
 --- !u!1 &8654465202307065708
 GameObject:
   m_ObjectHideFlags: 0
@@ -453,7 +450,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 42c620d0512497545ac76aa4739214f9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  hp: {fileID: 0}
+  hp: {fileID: 8654465204237098679}
 --- !u!1 &8654465202994236169
 GameObject:
   m_ObjectHideFlags: 0
@@ -505,7 +502,7 @@ GameObject:
   - component: {fileID: 8654465203268067025}
   - component: {fileID: 645537234806907966}
   m_Layer: 5
-  m_Name: Text
+  m_Name: TitleText
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

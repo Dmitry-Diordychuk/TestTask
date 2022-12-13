@@ -13,14 +13,22 @@ namespace TestTask
         [SerializeField] private IntValue mana;
         [SerializeField] private Death death;
 
-        public void Init(CardData data, Texture2D image)
+        private CardData _cardData;
+        
+        public void Init(CardData data)
+        {
+            _cardData = data;
+            
+            title.SetText(_cardData.Title);
+            description.SetText(_cardData.Description);
+            attack.Assign(_cardData.Attack);
+            hp.Assign(_cardData.HP);
+            mana.Assign(_cardData.Mana);
+        }
+
+        public void UpdateArt(Texture2D image)
         {
             art.SetArt(image);
-            title.SetText(data.Title);
-            description.SetText(data.Description);
-            attack.Assign(data.Attack);
-            hp.Assign(data.HP);
-            mana.Assign(data.Mana);
         }
 
         public void SubscribeOnDeath(Action func)

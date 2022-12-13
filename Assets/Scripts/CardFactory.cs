@@ -1,37 +1,37 @@
 using System;
-using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using Object = UnityEngine.Object;
 
 namespace TestTask
 {
-    public class CardFactory : MonoBehaviour, IConstructable
+    public class CardFactory : MonoBehaviour, IConstructListener
     {
-        [SerializeField] private List<CardData> _cardDataCollection;
-        [SerializeField] private Card cardPrefab;
-        
+        [SerializeField] private Card emptyCardPrefab;
+
         private ImageService _imageService;
-        private List<Object> _cardPrefabs;
 
         public void Construct(GameContext gameContext)
         {
             _imageService = gameContext.GetService<ImageService>();
         }
 
-        private void Awake()
+        public void CreateCard(CardData cardData, Action<Card> onSuccess, Action<Card> onError)
         {
-            foreach (var cardData in _cardDataCollection)
-            {
-                
-            }
-        }
-
-        public Card CreateCard(CardData cardData)
-        {
-            Card card = Instantiate(cardPrefab);
-            card.Init(cardData, _imageService.GetImage());
-            return card;
+            Card card = Instantiate(emptyCardPrefab);
+            card.Init(cardData);
+            _imageService.GetImage(
+                cardData.Title, 
+                (Texture2D image) =>
+                {
+                    card.UpdateArt(image);
+                    onSuccess(card);
+                }, (string message) =>
+                {
+                    Debug.LogWarning($"Art downloading failed with error: ${message}", this);
+                    onError(card);
+                }
+            );
         }
     }
 }
