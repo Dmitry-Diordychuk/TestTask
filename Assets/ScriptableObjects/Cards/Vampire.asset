@@ -12,9 +12,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6ec2573521444036821eec011bf701d8, type: 3}
   m_Name: Vampire
   m_EditorClassIdentifier: 
-  Art: {fileID: 0}
   Title: Vampire
-  Description: Description
-  Attack: 2
+  Description: Vampire description
+  Attack: 3
   HP: 5
-  Mana: 10
+  Mana: 2

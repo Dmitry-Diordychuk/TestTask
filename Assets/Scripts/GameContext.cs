@@ -9,15 +9,16 @@ namespace TestTask
     {
         private readonly List<object> _listeners = new();
         private readonly List<object> _services = new();
-        
+
         public enum GameState
         {
+            None,
             Init,
             Play,
             Finish
         }
 
-        private GameState _currentGameState;
+        private GameState _currentGameState = GameState.None;
 
         private void Awake()
         {
@@ -29,7 +30,7 @@ namespace TestTask
                 }
             }
         }
-        
+
         public T GetService<T>()
         {
             foreach (var service in _services)
@@ -41,6 +42,11 @@ namespace TestTask
             }
 
             throw new Exception($"Services of type {typeof(T).Name} wasn't located!");
+        }
+
+        public void AddService(object service)
+        {
+            _services.Add(service);
         }
 
         public void AddListener(object listener)

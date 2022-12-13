@@ -1,19 +1,30 @@
+using System;
 using UnityEngine;
 
 namespace TestTask
 {
-    public class GameManager : MonoBehaviour
+    public class GameManager : MonoBehaviour, IConstructable
     {
-        // Start is called before the first frame update
-        void Start()
+        private GameContext _gameContext;
+        private CardFactory _cardFactory;
+
+        public void Construct(GameContext gameContext)
         {
+            _gameContext = gameContext;
+            _cardFactory = gameContext.GetService<CardFactory>();
+        }
         
+        void Awake()
+        {
+            _gameContext.SetGameState(GameContext.GameState.Init);
+            
+            //int randomIndex = Mathf.RoundToInt(Random.value * (cardData.Count - 1));
+            
+            //_cardFactory.CreateCard()
         }
 
-        // Update is called once per frame
-        void Update()
+        private void Update()
         {
-        
         }
     }
 }

@@ -4,14 +4,14 @@ using UnityEngine.Networking;
 
 namespace TestTask
 {
-	public class ArtService : MonoBehaviour
+	public class ImageService : MonoBehaviour
 	{
 		[SerializeField] private string url;
 
-		public IEnumerable Get()
+		public Texture2D GetImage()
 		{
 			using UnityWebRequest webRequest = UnityWebRequest.Get(url);
-			yield return webRequest.SendWebRequest();
+			webRequest.SendWebRequest();
 
 			switch (webRequest.result)
 			{
@@ -25,8 +25,8 @@ namespace TestTask
 			}
 			
 			webRequest.downloadHandler = new DownloadHandlerTexture();
-			Texture texture = DownloadHandlerTexture.GetContent(webRequest);
-			yield return texture;
+			Texture2D texture = DownloadHandlerTexture.GetContent(webRequest);
+			return texture;
 		}
 	}
 }
