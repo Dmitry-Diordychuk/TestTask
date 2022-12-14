@@ -1,22 +1,22 @@
 ﻿using System.Linq;
+using TestTask.UI;
 using UnityEngine;
-using Random = UnityEngine.Random;
 
-namespace TestTask
+namespace TestTask.GameObjects
 {
-	public class CardChanger : MonoBehaviour, IGameStartListener
+	public class CardStatChanger : MonoBehaviour, IGameStartListener
 	{
 		[SerializeField] private PlayerHand playerHand;
 		[SerializeField] private ButtonBehaviour changeButton;
 
 		private int _index;
 		private bool _isGameStart;
-		
+
 		public void OnGamePlay()
 		{
 			_isGameStart = true;
 		}
-		
+
 		private void OnEnable()
 		{
 			changeButton.OnClick += OnClick;

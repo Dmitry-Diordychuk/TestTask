@@ -3,7 +3,7 @@ using System.Collections;
 using TMPro;
 using UnityEngine;
 
-namespace TestTask
+namespace TestTask.UI
 {
 	public class ValueWidget : MonoBehaviour
 	{
@@ -22,7 +22,7 @@ namespace TestTask
 			for (int i = currentValue + one; i != value + one;)
 			{
 				yield return new WaitForSeconds(0.1f);
-				
+
 				valueText.text = i.ToString();
 
 				i += one;

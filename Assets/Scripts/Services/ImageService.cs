@@ -4,13 +4,13 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Networking;
 
-namespace TestTask
+namespace TestTask.Services
 {
 	public class ImageService : MonoBehaviour
 	{
 		[SerializeField] private string url;
-		
-		private readonly Dictionary<string, Texture2D> _alreadyDownloadedArt = new ();
+
+		private readonly Dictionary<string, Texture2D> _alreadyDownloadedArt = new();
 
 		public void GetImage(string imageName, Action<Texture2D> onSuccess, Action<string> onError)
 		{
@@ -20,7 +20,7 @@ namespace TestTask
 				onSuccess(_alreadyDownloadedArt[imageName]);
 				return;
 			}
-			
+
 			StartCoroutine(DownloadImage(imageName, texture2D =>
 			{
 				Texture2D copy = new Texture2D(texture2D.width, texture2D.height);
@@ -47,9 +47,9 @@ namespace TestTask
 					onError(webRequest.error);
 					yield break;
 			}
-			
+
 			Texture2D texture = DownloadHandlerTexture.GetContent(webRequest);
-			
+
 			onSuccess(texture);
 		}
 	}

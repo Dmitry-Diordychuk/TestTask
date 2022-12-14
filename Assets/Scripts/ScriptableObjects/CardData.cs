@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 
-namespace TestTask
+namespace TestTask.ScriptableObjects
 {
 	[CreateAssetMenu(fileName = "New Card", menuName = "Card")]
 	public class CardData : ScriptableObject

@@ -1,24 +1,23 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using DG.Tweening;
+using TestTask.Services;
 using UnityEngine;
 using UnityEngine.Serialization;
-using Random = UnityEngine.Random;
 
-namespace TestTask
+namespace TestTask.GameObjects
 {
 	public class PlayerHand : MonoBehaviour, IConstructListener, IGameInitListener, IGameStartListener
 	{
 		[SerializeField] private float cardsEllipseHeight;
 		[SerializeField] private float cardsEllipseWidth;
 		[SerializeField] private float cardsCenterOffset;
-		[SerializeField] private float ellipseCenterYOffset;
+		[SerializeField] private float arcCenterYOffset;
 		[SerializeField] private WastePile _wastePile;
 
-		private readonly List<Card> _hand = new ();
-		
+		private readonly List<Card> _hand = new();
+
 		private CardDispenser _cardDispenser;
-		
+
 		private float _ellipseBDivA;
 
 		public void Construct(GameContext gameContext)
@@ -43,7 +42,7 @@ namespace TestTask
 				return true;
 			}
 
-			card = _hand[0];
+			card = _cardDispenser.GetNullCard();
 			return false;
 		}
 
@@ -66,6 +65,7 @@ namespace TestTask
 					AddCard(card);
 				}
 			}
+
 			OrderCards();
 		}
 
@@ -93,7 +93,8 @@ namespace TestTask
 			for (int i = 0; i < _hand.Count; i++)
 			{
 				var handPosition = transform.position;
-				float x = handPosition.x + i * cardsCenterOffset - halfCount * cardsCenterOffset + (isOdd ? 0.0f : cardsCenterOffset / 2.0f);
+				float x = handPosition.x + i * cardsCenterOffset - halfCount * cardsCenterOffset +
+				          (isOdd ? 0.0f : cardsCenterOffset / 2.0f);
 				var endPosition = new Vector3(
 					x,
 					EllipseFunc(x - handPosition.x),
@@ -101,16 +102,17 @@ namespace TestTask
 				);
 				_hand[i].transform.DOMove(endPosition, 3.0f, true).SetLink(_hand[i].gameObject);
 
-				 Vector3 lookPoint = handPosition;
-				 lookPoint.y += ellipseCenterYOffset;
-				 Quaternion rotation = Quaternion.LookRotation(lookPoint - endPosition, Vector3.forward);
-				 rotation.x = 0.0f;
-				 rotation.y = 0.0f;
+				Vector3 lookPoint = handPosition;
+				lookPoint.y += arcCenterYOffset;
+				Quaternion rotation = Quaternion.LookRotation(lookPoint - endPosition, Vector3.forward);
+				rotation.x = 0.0f;
+				rotation.y = 0.0f;
 				_hand[i].transform.rotation = rotation;
-				_hand[i].transform.DORotateQuaternion(rotation, 3.0f).SetLink(_hand[i].gameObject).SetLink(_hand[i].gameObject);
+				_hand[i].transform.DORotateQuaternion(rotation, 3.0f).SetLink(_hand[i].gameObject)
+					.SetLink(_hand[i].gameObject);
 			}
 		}
-		
+
 		private float EllipseFunc(float x)
 		{
 			return _ellipseBDivA * Mathf.Sqrt((cardsEllipseWidth - x) * (cardsEllipseWidth + x));

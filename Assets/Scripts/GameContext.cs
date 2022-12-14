@@ -3,113 +3,115 @@ using System.Collections.Generic;
 
 namespace TestTask
 {
-    public class GameContext : SingletonBehaviour<GameContext>
-    {
-        private readonly List<object> _listeners = new();
-        private readonly List<object> _services = new();
+	public class GameContext : SingletonBehaviour<GameContext>
+	{
+		private readonly List<object> _listeners = new();
+		private readonly List<object> _services = new();
 
-        public enum GameState
-        {
-            None,
-            Init,
-            Start,
-            Finish
-        }
+		public enum GameState
+		{
+			None,
+			Init,
+			Start,
+			Finish
+		}
 
-        public GameState CurrentGameState => _currentGameState;
-        
-        private GameState _currentGameState = GameState.None;
-        
+		public GameState CurrentGameState => _currentGameState;
 
-        private void Awake()
-        {
-            foreach (var listener in _listeners)
-            {
-                if (listener is IConstructListener constructListener)
-                {
-                    constructListener.Construct(this as GameContext);
-                }
-            }
-        }
+		private GameState _currentGameState = GameState.None;
 
-        public T GetService<T>()
-        {
-            foreach (var service in _services)
-            {
-                if (service is T desiredService)
-                {
-                    return desiredService;
-                }
-            }
+		private void Awake()
+		{
+			foreach (var listener in _listeners)
+			{
+				if (listener is IConstructListener constructListener)
+				{
+					constructListener.Construct(this as GameContext);
+				}
+			}
+		}
 
-            throw new Exception($"Services of type {typeof(T).Name} wasn't located!");
-        }
+		public T GetService<T>()
+		{
+			foreach (var service in _services)
+			{
+				if (service is T desiredService)
+				{
+					return desiredService;
+				}
+			}
 
-        public void AddService(object service)
-        {
-            _services.Add(service);
-        }
+			throw new Exception($"Services of type {typeof(T).Name} wasn't located!");
+		}
 
-        public void AddListener(object listener)
-        {
-            _listeners.Add(listener);
-        }
+		public void AddService(object service)
+		{
+			_services.Add(service);
+		}
 
-        public void RemoveListener(object listener)
-        {
-            _listeners.Remove(listener);
-        }
+		public void AddListener(object listener)
+		{
+			_listeners.Add(listener);
+		}
 
-        public void SetGameState(GameState state)
-        {
-            if (_currentGameState != state)
-            {
-                _currentGameState = state;
-                foreach (var listener in _listeners)
-                {
-                    switch (state)
-                    {
-                        case GameState.Init:
-                            if (listener is IGameInitListener initListener)
-                            {
-                                initListener.OnGameInit();
-                            }
-                            break;
-                        case GameState.Start:
-                            if (listener is IGameStartListener playListener)
-                            {
-                                playListener.OnGamePlay();
-                            }
-                            break;
-                        case GameState.Finish:
-                            if (listener is IGameFinishListener finishListener)
-                            {
-                                finishListener.OnGameFinish();
-                            }
-                            break;
-                    }
-                }
-            }
-        }
-    }
+		public void RemoveListener(object listener)
+		{
+			_listeners.Remove(listener);
+		}
 
-    public interface IGameInitListener
-    {
-        void OnGameInit();
-    }
+		public void SetGameState(GameState state)
+		{
+			if (_currentGameState != state)
+			{
+				_currentGameState = state;
+				foreach (var listener in _listeners)
+				{
+					switch (state)
+					{
+						case GameState.Init:
+							if (listener is IGameInitListener initListener)
+							{
+								initListener.OnGameInit();
+							}
 
-    public interface IGameStartListener
-    {
-        void OnGamePlay();
-    }
+							break;
+						case GameState.Start:
+							if (listener is IGameStartListener playListener)
+							{
+								playListener.OnGamePlay();
+							}
 
-    public interface IGameFinishListener
-    {
-        void OnGameFinish();
-    }
+							break;
+						case GameState.Finish:
+							if (listener is IGameFinishListener finishListener)
+							{
+								finishListener.OnGameFinish();
+							}
 
-    public interface IConstructListener
-    {
-        void Construct(GameContext gameContext);
-    }
+							break;
+					}
+				}
+			}
+		}
+	}
+
+	public interface IGameInitListener
+	{
+		void OnGameInit();
+	}
+
+	public interface IGameStartListener
+	{
+		void OnGamePlay();
+	}
+
+	public interface IGameFinishListener
+	{
+		void OnGameFinish();
+	}
+
+	public interface IConstructListener
+	{
+		void Construct(GameContext gameContext);
+	}
 }

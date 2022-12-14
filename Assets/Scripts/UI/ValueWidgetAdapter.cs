@@ -1,6 +1,7 @@
-﻿using UnityEngine;
+﻿using TestTask.Mechanics;
+using UnityEngine;
 
-namespace TestTask
+namespace TestTask.UI
 {
 	public class ValueWidgetAdapter : MonoBehaviour
 	{

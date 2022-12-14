@@ -2,7 +2,7 @@ using UnityEngine;
 
 namespace TestTask
 {
-	public class SingletonBehaviour<T> : MonoBehaviour where T: Component
+	public class SingletonBehaviour<T> : MonoBehaviour where T : Component
 	{
 		private static T _instance;
 
