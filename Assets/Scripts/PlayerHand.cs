@@ -40,8 +40,13 @@ namespace TestTask
 				return true;
 			}
 
-			card = _cardDispenser.GetNullCard();
+			card = _hand[0];
 			return false;
+		}
+
+		public int GetCount()
+		{
+			return _hand.Count;
 		}
 
 		public void OnGameInit()

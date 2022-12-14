@@ -9,9 +9,6 @@ namespace TestTask
 {
     public class GameManager : MonoBehaviour, IConstructListener
     {
-        [SerializeField] private PlayerHand _playerHand;
-        [SerializeField] private ButtonBehaviour randomStatChangeButton;
-
         private GameContext _gameContext;
         private CardDispenser _cardDispenser;
         
@@ -34,26 +31,6 @@ namespace TestTask
             {
                 _gameContext.SetGameState(GameContext.GameState.Start);
             }
-        }
-
-        private void OnEnable()
-        {
-            randomStatChangeButton.OnClick += OnRandomButtonClick;
-        }
-
-        private void OnDisable()
-        {
-            randomStatChangeButton.OnClick -= OnRandomButtonClick;
-        }
-        
-        private void OnRandomButtonClick()
-        {
-            int i = 0;
-            while (_playerHand.TryGetCardAt(i, out var card))
-            {
-                i++;
-            }
-            
         }
     }
 }
