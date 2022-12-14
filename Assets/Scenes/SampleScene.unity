@@ -307,7 +307,7 @@ MonoBehaviour:
   cardsEllipseHeight: 150
   cardsEllipseWidth: 350
   cardsCenterOffset: 60
-  arcCenterYOffset: -500
+  ellipseCenterYOffset: -500
   _wastePile: {fileID: 1244210446}
 --- !u!1 &560898471
 GameObject:

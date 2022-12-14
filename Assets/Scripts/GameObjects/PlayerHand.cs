@@ -2,6 +2,7 @@
 using DG.Tweening;
 using TestTask.Services;
 using UnityEngine;
+using UnityEngine.Serialization;
 
 namespace TestTask.GameObjects
 {
@@ -11,7 +12,7 @@ namespace TestTask.GameObjects
 		[SerializeField] private float cardsEllipseHeight;
 		[SerializeField] private float cardsEllipseWidth;
 		[SerializeField] private float cardsCenterOffset;
-		[SerializeField] private float arcCenterYOffset;
+		[SerializeField] private float ellipseCenterYOffset;
 		[SerializeField] private WastePile _wastePile;
 
 		private readonly List<Card> _hand = new();
@@ -102,7 +103,7 @@ namespace TestTask.GameObjects
 				);
 				_hand[i].transform.DOLocalMove(endPosition, cardMovementTime, true).SetLink(_hand[i].gameObject);
 
-				Vector3 lookPoint = new Vector3(0.0f, arcCenterYOffset, 0.0f);
+				Vector3 lookPoint = new Vector3(0.0f, ellipseCenterYOffset, 0.0f);
 				Quaternion rotation = Quaternion.LookRotation(lookPoint - endPosition, Vector3.forward);
 				rotation.x = 0.0f;
 				rotation.y = 0.0f;
