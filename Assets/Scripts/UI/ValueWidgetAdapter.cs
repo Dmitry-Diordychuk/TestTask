@@ -1,4 +1,5 @@
-﻿using TestTask.Mechanics;
+﻿using System;
+using TestTask.Mechanics;
 using UnityEngine;
 
 namespace TestTask.UI
@@ -11,6 +12,11 @@ namespace TestTask.UI
 		private void OnEnable()
 		{
 			value.OnValueChanged += OnValueChanged;
+		}
+
+		private void OnDisable()
+		{
+			value.OnValueChanged -= OnValueChanged;
 		}
 
 		private void OnValueChanged(int newValue)
