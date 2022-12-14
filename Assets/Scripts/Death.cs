@@ -21,7 +21,7 @@ namespace TestTask
 
         private void CheckDeath(int hp)
         {
-            if (hp <= 0)
+            if (hp < 1)
             {
                 OnDeath?.Invoke();
             }

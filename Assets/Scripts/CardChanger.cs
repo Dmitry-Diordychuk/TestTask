@@ -1,5 +1,4 @@
-﻿using System;
-using System.Linq;
+﻿using System.Linq;
 using UnityEngine;
 using Random = UnityEngine.Random;
 
@@ -30,7 +29,7 @@ namespace TestTask
 
 		private void OnClick()
 		{
-			if (!_isGameStart)
+			if (!_isGameStart || playerHand.GetCount() <= 0)
 			{
 				return;
 			}

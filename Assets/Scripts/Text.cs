@@ -16,5 +16,10 @@ namespace TestTask
         {
             _textMeshPro.text = text;
         }
+
+        public override string ToString()
+        {
+            return _textMeshPro.text;
+        }
     }
 }
