@@ -16,12 +16,11 @@ namespace TestTask.Services
 		{
 			if (_alreadyDownloadedArt.ContainsKey(imageName))
 			{
-				Debug.Log($"{imageName} Find");
 				onSuccess(_alreadyDownloadedArt[imageName]);
 				return;
 			}
 
-			StartCoroutine(DownloadImage(imageName, texture2D =>
+			StartCoroutine(DownloadImage(texture2D =>
 			{
 				Texture2D copy = new Texture2D(texture2D.width, texture2D.height);
 				copy.SetPixels(texture2D.GetPixels());
@@ -31,7 +30,7 @@ namespace TestTask.Services
 			}, onError));
 		}
 
-		private IEnumerator DownloadImage(string title, Action<Texture2D> onSuccess, Action<string> onError)
+		private IEnumerator DownloadImage(Action<Texture2D> onSuccess, Action<string> onError)
 		{
 			using UnityWebRequest webRequest = UnityWebRequest.Get(url);
 			webRequest.downloadHandler = new DownloadHandlerTexture();

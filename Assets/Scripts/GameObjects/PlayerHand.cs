@@ -21,18 +21,27 @@ namespace TestTask.GameObjects
 
 		private float _ellipseBDivA;
 
-		public void Construct(GameContext gameContext)
+		void IConstructListener.Construct(GameContext gameContext)
 		{
 			_cardDispenser = gameContext.GetService<CardDispenser>();
 		}
-
-		public void AddCard(Card card)
+		
+		void IGameInitListener.OnGameInit()
 		{
-			Transform cardTransform = card.transform;
-			cardTransform.SetParent(transform);
-			cardTransform.position = transform.position;
-			card.OnDeath += OnCardDeath;
-			_hand.Add(card);
+			_ellipseBDivA = cardsEllipseHeight / cardsEllipseWidth;
+		}
+
+		void IGameStartListener.OnGameStart()
+		{
+			for (int i = 0; i < Random.Range(4, 7); i++)
+			{
+				if (_cardDispenser.TryGetNextCard(out var card))
+				{
+					AddCard(card);
+				}
+			}
+
+			OrderCards();
 		}
 
 		public bool TryGetCardAt(int index, out Card card)
@@ -51,23 +60,14 @@ namespace TestTask.GameObjects
 		{
 			return _hand.Count;
 		}
-
-		public void OnGameInit()
+		
+		private void AddCard(Card card)
 		{
-			_ellipseBDivA = cardsEllipseHeight / cardsEllipseWidth;
-		}
-
-		public void OnGamePlay()
-		{
-			for (int i = 0; i < Random.Range(4, 7); i++)
-			{
-				if (_cardDispenser.TryGetNextCard(out var card))
-				{
-					AddCard(card);
-				}
-			}
-
-			OrderCards();
+			Transform cardTransform = card.transform;
+			cardTransform.SetParent(transform);
+			cardTransform.position = transform.position;
+			card.OnDeath += OnCardDeath;
+			_hand.Add(card);
 		}
 
 		private void OnCardDeath(Card card)

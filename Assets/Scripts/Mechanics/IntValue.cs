@@ -19,17 +19,5 @@ namespace TestTask.Mechanics
 
 			_value = value;
 		}
-
-		public void Add(int amount)
-		{
-			_value += amount;
-			OnValueChanged?.Invoke(_value);
-		}
-
-		public void Sub(int amount)
-		{
-			_value -= amount;
-			OnValueChanged?.Invoke(_value);
-		}
 	}
 }

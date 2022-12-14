@@ -78,7 +78,7 @@ namespace TestTask
 						case GameState.Start:
 							if (listener is IGameStartListener playListener)
 							{
-								playListener.OnGamePlay();
+								playListener.OnGameStart();
 							}
 
 							break;
@@ -102,7 +102,7 @@ namespace TestTask
 
 	public interface IGameStartListener
 	{
-		void OnGamePlay();
+		void OnGameStart();
 	}
 
 	public interface IGameFinishListener

@@ -12,11 +12,6 @@ namespace TestTask.GameObjects
 		private int _index;
 		private bool _isGameStart;
 
-		public void OnGamePlay()
-		{
-			_isGameStart = true;
-		}
-
 		private void OnEnable()
 		{
 			changeButton.OnClick += OnClick;
@@ -25,6 +20,11 @@ namespace TestTask.GameObjects
 		private void OnDisable()
 		{
 			changeButton.OnClick -= OnClick;
+		}
+		
+		void IGameStartListener.OnGameStart()
+		{
+			_isGameStart = true;
 		}
 
 		private void OnClick()

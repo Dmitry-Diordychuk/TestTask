@@ -10,7 +10,7 @@ namespace TestTask
 
 		private int _requiredNumberOfCards;
 
-		public void Construct(GameContext gameContext)
+		void IConstructListener.Construct(GameContext gameContext)
 		{
 			_gameContext = gameContext;
 			_cardDispenser = gameContext.GetService<CardDispenser>();

@@ -21,7 +21,7 @@ namespace TestTask.Services
 		private int _lastCardIndex;
 		private Card _nullCard;
 
-		public void Construct(GameContext gameContext)
+		void IConstructListener.Construct(GameContext gameContext)
 		{
 			_imageService = gameContext.GetService<ImageService>();
 		}
@@ -31,7 +31,7 @@ namespace TestTask.Services
 			_nullCard = GetCard(nullData);
 		}
 
-		public void OnGameInit()
+		void IGameInitListener.OnGameInit()
 		{
 			foreach (var data in _cardDataCollection)
 			{
@@ -51,16 +51,11 @@ namespace TestTask.Services
 			return _nullCard;
 		}
 
-		public Card GetCard(CardData cardData)
+		private Card GetCard(CardData cardData)
 		{
 			Card card = Instantiate(emptyCardPrefab);
 			card.Data = cardData;
 			return card;
-		}
-
-		public Card GetRandomCard()
-		{
-			return GetCard(_cardDataCollection[Random.Range(0, _cardDataCollection.Count)]);
 		}
 
 		public bool TryGetNextCard(out Card card)
