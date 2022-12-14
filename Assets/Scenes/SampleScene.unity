@@ -303,9 +303,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6209f69d83254ec0b851e336c141a2ef, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  cardMovementTime: 2
   cardsEllipseHeight: 150
   cardsEllipseWidth: 350
-  cardsCenterOffset: 85
+  cardsCenterOffset: 60
   arcCenterYOffset: -500
   _wastePile: {fileID: 1244210446}
 --- !u!1 &560898471

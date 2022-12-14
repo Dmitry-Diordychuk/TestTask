@@ -2,12 +2,12 @@
 using DG.Tweening;
 using TestTask.Services;
 using UnityEngine;
-using UnityEngine.Serialization;
 
 namespace TestTask.GameObjects
 {
 	public class PlayerHand : MonoBehaviour, IConstructListener, IGameInitListener, IGameStartListener
 	{
+		[SerializeField] private float cardMovementTime;
 		[SerializeField] private float cardsEllipseHeight;
 		[SerializeField] private float cardsEllipseWidth;
 		[SerializeField] private float cardsCenterOffset;
@@ -78,11 +78,12 @@ namespace TestTask.GameObjects
 
 		private void Discard(Card card)
 		{
+			card.transform.DOKill();
 			_hand.Remove(card);
 			card.transform.SetParent(_wastePile.transform);
-			card.transform.DOMove(_wastePile.transform.position, 3.0f).SetLink(card.gameObject);
+			card.transform.DOLocalMove(Vector3.zero, cardMovementTime).SetLink(card.gameObject);
 			Vector3 randomRotation = new Vector3(0.0f, 0.0f, Random.Range(-180.0f, -30.0f));
-			card.transform.DOLocalRotate(randomRotation, 3.0f).SetLink(card.gameObject);
+			card.transform.DOLocalRotate(randomRotation, cardMovementTime).SetRelative().SetLink(card.gameObject);
 		}
 
 		private void OrderCards()
@@ -92,23 +93,21 @@ namespace TestTask.GameObjects
 
 			for (int i = 0; i < _hand.Count; i++)
 			{
-				var handPosition = transform.position;
-				float x = handPosition.x + i * cardsCenterOffset - halfCount * cardsCenterOffset +
+				float x = i * cardsCenterOffset - halfCount * cardsCenterOffset +
 				          (isOdd ? 0.0f : cardsCenterOffset / 2.0f);
 				var endPosition = new Vector3(
 					x,
-					EllipseFunc(x - handPosition.x),
+					EllipseFunc(x),
 					_hand[i].transform.position.z
 				);
-				_hand[i].transform.DOMove(endPosition, 3.0f, true).SetLink(_hand[i].gameObject);
+				_hand[i].transform.DOLocalMove(endPosition, cardMovementTime, true).SetLink(_hand[i].gameObject);
 
-				Vector3 lookPoint = handPosition;
-				lookPoint.y += arcCenterYOffset;
+				Vector3 lookPoint = new Vector3(0.0f, arcCenterYOffset, 0.0f);
 				Quaternion rotation = Quaternion.LookRotation(lookPoint - endPosition, Vector3.forward);
 				rotation.x = 0.0f;
 				rotation.y = 0.0f;
 				_hand[i].transform.rotation = rotation;
-				_hand[i].transform.DORotateQuaternion(rotation, 3.0f).SetLink(_hand[i].gameObject)
+				_hand[i].transform.DOLocalRotateQuaternion(rotation, cardMovementTime).SetLink(_hand[i].gameObject)
 					.SetLink(_hand[i].gameObject);
 			}
 		}
