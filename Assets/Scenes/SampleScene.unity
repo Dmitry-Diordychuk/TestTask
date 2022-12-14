@@ -152,7 +152,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8d99c4b275634bb786842e9de3badbf2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  url: https://picsum.photos/200
+  url: https://picsum.photos/300
 --- !u!4 &260649503
 Transform:
   m_ObjectHideFlags: 0
@@ -303,10 +303,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6209f69d83254ec0b851e336c141a2ef, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  cardsEllipseHeight: 100
-  cardsEllipseWidth: 200
-  cardsCenterOffset: 60
-  handPositionYOffset: -200
+  cardsEllipseHeight: 150
+  cardsEllipseWidth: 350
+  cardsCenterOffset: 85
+  handPositionYOffset: -500
 --- !u!1 &560898471
 GameObject:
   m_ObjectHideFlags: 0

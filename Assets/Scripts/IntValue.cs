@@ -12,6 +12,7 @@ namespace TestTask
 
         public void Assign(int value)
         {
+            Debug.Log($"Current value = {_value}; New value = {value}");
             if (_value != value)
             {
                 OnValueChanged?.Invoke(value);
